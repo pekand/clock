@@ -75,11 +75,11 @@ namespace Clock
         private void FormCalendar_Paint(object sender, PaintEventArgs e)
         {
 
-            
-
             if (this.bitmap == null) 
             {
-                this.bitmap = new Bitmap(1200, 400);
+                this.bitmap = new Bitmap(this.Width, this.Height);
+                int width = 30;
+
                 using (Graphics gr = Graphics.FromImage(this.bitmap))
                 {
 
@@ -98,9 +98,9 @@ namespace Clock
                         for (int m = 1; m < 13; m++)
                         {
                             SolidBrush blueBrush = new SolidBrush(Color.Yellow);
-                            gr.FillRectangle(blueBrush, new Rectangle(mx, my, 30, 30));
+                            gr.FillRectangle(blueBrush, new Rectangle(mx, my, width, width));
                             gr.DrawString(m.ToString(), this.Font, Brushes.Black, mx + 10, my + 10);
-                            my = my + 30;
+                            my = my + width;
                         }
 
                         for (int m = 1; m < 13; m++)
@@ -109,8 +109,8 @@ namespace Clock
                             for (int s = 0; s < this.DayToSpace(startDay.DayOfWeek); s++)
                             {
                                 SolidBrush blueBrush = new SolidBrush(Color.Gray);
-                                gr.FillRectangle(blueBrush, new Rectangle(px, py, 30, 30));
-                                px = px + 30;
+                                gr.FillRectangle(blueBrush, new Rectangle(px, py, width, width));
+                                px = px + width;
                             }
 
 
@@ -131,20 +131,20 @@ namespace Clock
                                     blueBrush = new SolidBrush(Color.Red);
                                 }
 
-                                gr.FillRectangle(blueBrush, new Rectangle(px, py, 30, 30));
+                                gr.FillRectangle(blueBrush, new Rectangle(px, py, width, width));
                                 gr.DrawString(d.ToString(), this.Font, Brushes.Black, px + 10, py + 10);
-                                px = px + 30;
+                                px = px + width;
                             }
 
                             for (int s = this.DayToSpace(startDay.DayOfWeek) + DateTime.DaysInMonth(year, m); s < 31 + 6; s++)
                             {
                                 SolidBrush blueBrush = new SolidBrush(Color.Gray);
-                                gr.FillRectangle(blueBrush, new Rectangle(px, py, 30, 30));
-                                px = px + 30;
+                                gr.FillRectangle(blueBrush, new Rectangle(px, py, width, width));
+                                px = px + width;
                             }
 
                             px = 40;
-                            py = py + 30;
+                            py = py + width;
                         }
 
                         int dx = 40;
@@ -153,9 +153,9 @@ namespace Clock
                         for (int d = 0; d < 31 + 6; d++)
                         {
                             SolidBrush blueBrush = new SolidBrush(Color.Green);
-                            gr.FillRectangle(blueBrush, new Rectangle(dx, dy, 30, 30));
+                            gr.FillRectangle(blueBrush, new Rectangle(dx, dy, width, width));
                             gr.DrawString(days[d % 7], this.Font, Brushes.Black, dx + 10, dy + 10);
-                            dx = dx + 30;
+                            dx = dx + width;
                         }
                     }
                 }
