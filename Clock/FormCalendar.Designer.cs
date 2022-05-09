@@ -36,12 +36,14 @@ namespace Clock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1195, 450);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormCalendar";
             this.Text = "Calendar";
             this.Load += new System.EventHandler(this.FormCalendar_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormCalendar_Paint);
+            this.Resize += new System.EventHandler(this.FormCalendar_Resize);
             this.ResumeLayout(false);
 
         }

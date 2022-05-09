@@ -72,34 +72,43 @@ namespace Clock
             return 0;
         }
 
+        private int lastWidth = 0;
+
         private void FormCalendar_Paint(object sender, PaintEventArgs e)
         {
 
-            if (this.bitmap == null) 
+            int width = this.Width / 38;
+
+            if (this.bitmap == null || lastWidth != width) 
             {
+
+                lastWidth = width;
+
                 this.bitmap = new Bitmap(this.Width, this.Height);
-                int width = 30;
+                
+
+                int center = (width - 10)/ 2;
 
                 using (Graphics gr = Graphics.FromImage(this.bitmap))
                 {
 
                     using (Pen thick_pen = new Pen(Color.Blue, 5))
                     {
-                        int px = 40;
-                        int py = 40;
+                        int px = width;
+                        int py = width;
 
                         Pen blackPen = new Pen(Color.Gray, 1);
 
 
                         int year = DateTime.Now.Year;
 
-                        int mx = 10;
-                        int my = 40;
+                        int mx = 0;
+                        int my = width;
                         for (int m = 1; m < 13; m++)
                         {
-                            SolidBrush blueBrush = new SolidBrush(Color.Yellow);
+                            SolidBrush blueBrush = new SolidBrush(System.Drawing.ColorTranslator.FromHtml("#FFF28A"));
                             gr.FillRectangle(blueBrush, new Rectangle(mx, my, width, width));
-                            gr.DrawString(m.ToString(), this.Font, Brushes.Black, mx + 10, my + 10);
+                            gr.DrawString(m.ToString(), this.Font, Brushes.Black, mx + center, my + center);
                             my = my + width;
                         }
 
@@ -108,7 +117,7 @@ namespace Clock
                             DateTime startDay = new DateTime(year, m, 1);
                             for (int s = 0; s < this.DayToSpace(startDay.DayOfWeek); s++)
                             {
-                                SolidBrush blueBrush = new SolidBrush(Color.Gray);
+                                SolidBrush blueBrush = new SolidBrush(System.Drawing.ColorTranslator.FromHtml("#FFFFFF"));
                                 gr.FillRectangle(blueBrush, new Rectangle(px, py, width, width));
                                 px = px + width;
                             }
@@ -132,29 +141,29 @@ namespace Clock
                                 }
 
                                 gr.FillRectangle(blueBrush, new Rectangle(px, py, width, width));
-                                gr.DrawString(d.ToString(), this.Font, Brushes.Black, px + 10, py + 10);
+                                gr.DrawString(d.ToString(), this.Font, Brushes.Black, px + center, py + center);
                                 px = px + width;
                             }
 
                             for (int s = this.DayToSpace(startDay.DayOfWeek) + DateTime.DaysInMonth(year, m); s < 31 + 6; s++)
                             {
-                                SolidBrush blueBrush = new SolidBrush(Color.Gray);
+                                SolidBrush blueBrush = new SolidBrush(System.Drawing.ColorTranslator.FromHtml("#FFFFFF"));
                                 gr.FillRectangle(blueBrush, new Rectangle(px, py, width, width));
                                 px = px + width;
                             }
 
-                            px = 40;
+                            px = width;
                             py = py + width;
                         }
 
-                        int dx = 40;
-                        int dy = 10;
+                        int dx = width;
+                        int dy = 0;
                         string[] days = new string[] { "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" };
                         for (int d = 0; d < 31 + 6; d++)
                         {
-                            SolidBrush blueBrush = new SolidBrush(Color.Green);
+                            SolidBrush blueBrush = new SolidBrush(System.Drawing.ColorTranslator.FromHtml("#FFF28A"));
                             gr.FillRectangle(blueBrush, new Rectangle(dx, dy, width, width));
-                            gr.DrawString(days[d % 7], this.Font, Brushes.Black, dx + 10, dy + 10);
+                            gr.DrawString(days[d % 7], this.Font, Brushes.Black, dx + center, dy + center);
                             dx = dx + width;
                         }
                     }
@@ -167,6 +176,11 @@ namespace Clock
 
 
 
+        }
+
+        private void FormCalendar_Resize(object sender, EventArgs e)
+        {
+            this.Invalidate();
         }
     }
 }
